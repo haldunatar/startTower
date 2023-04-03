@@ -3,13 +3,13 @@ from flask import Flask, request
 import threading
 from flask import render_template
 
-# import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 
 app = Flask(__name__)
 
-# GPIO.setmode(GPIO.BCM)
-# GPIO_PIN = 18
-# GPIO.setup(GPIO_PIN, GPIO.OUT)
+GPIO.setmode(GPIO.BCM)
+GPIO_PIN = 18
+GPIO.setup(GPIO_PIN, GPIO.OUT)
 
 countdown_timer = 180
 timer_paused = True
@@ -27,16 +27,16 @@ def countdown():
                 minutes, seconds = divmod(countdown_timer, 60)
                 if seconds == 0:
                     print("GPIO.HIGH")
-                    # GPIO.output(GPIO_PIN, GPIO.HIGH)
+                    GPIO.output(GPIO_PIN, GPIO.HIGH)
                     time.sleep(1)
                     print("GPIO.LOW")
-                    # GPIO.output(GPIO_PIN, GPIO.LOW)
+                    GPIO.output(GPIO_PIN, GPIO.LOW)
             else:
                 print("GPIO.HIGH")
-                # GPIO.output(GPIO_PIN, GPIO.HIGH)
+                GPIO.output(GPIO_PIN, GPIO.HIGH)
                 time.sleep(2)
                 print("GPIO.LOW end!!!")
-                # GPIO.output(GPIO_PIN, GPIO.LOW)
+                GPIO.output(GPIO_PIN, GPIO.LOW)
                 timer_reset = True
                 time.sleep(time_to_start_again)
         else:

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-flow: column;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            padding: 40px;
+            background-color: white;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border-radius: 6px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 6px;
+            border: none;
+            margin: 25px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        select {
+            font-size: 16px;
+            padding: 5px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+    </style>
+    <script>
+        async function sendRequest(endpoint) {
+            const response = await fetch(endpoint, { method: 'POST' });
+            const message = await response.text();
+            alert(message);
+        }
+
+        async function setFormat() {
+            const format = document.getElementById('format').value;
+            const response = await fetch(`/format?type=${format}`, { method: 'GET' });
+            const message = await response.text();
+            alert(message);
+        }
+    </script>
+</head>
+<body>
+
+    <button onclick="sendRequest('/start')">Start</button>
+    <button onclick="sendRequest('/pause')">Pause</button>
+    <button onclick="sendRequest('/stop')">Stop</button>
+    <br>
+ 
+    <select id="format" onchange="setFormat()">
+        <option value="3">3 minutes</option>
+        <option value="4">4 minutes</option>
+        <option value="5">5 minutes</option>
+    </select>
+</body>
+</html>
